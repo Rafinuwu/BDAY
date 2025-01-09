@@ -1,12 +1,14 @@
 const images = document.querySelectorAll('.image-container');
-const swipeText = document.querySelector('.swipe-text');
 let currentIndex = 0;
 
+// Function to show the current image and hide others
 function showImage(index) {
   images.forEach((img, i) => {
-    img.classList.toggle('active', i === index);
+    img.style.display = i === index ? 'flex' : 'none';
   });
 
+  // Update the swipe text based on the image position
+  const swipeText = document.querySelector('.swipe-text');
   if (index === 0) {
     swipeText.textContent = 'Swipe ➡️';
   } else if (index === images.length - 1) {
@@ -16,6 +18,7 @@ function showImage(index) {
   }
 }
 
+// Handle swiping (key press for simplicity)
 function handleSwipe(event) {
   if (event.key === 'ArrowRight' && currentIndex < images.length - 1) {
     currentIndex++;
@@ -26,5 +29,6 @@ function handleSwipe(event) {
   }
 }
 
+// Initialize the carousel
 document.addEventListener('keydown', handleSwipe);
 showImage(currentIndex);
