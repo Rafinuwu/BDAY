@@ -1,30 +1,56 @@
-const images = document.querySelectorAll('.image-container');
-const swipeText = document.querySelector('.swipe-text');
-let currentIndex = 0;
-
-function showImage(index) {
-  images.forEach((img, i) => {
-    img.classList.toggle('active', i === index);
-  });
-
-  if (index === 0) {
-    swipeText.textContent = 'Swipe ➡️';
-  } else if (index === images.length - 1) {
-    swipeText.textContent = '⬅️ Swipe';
-  } else {
-    swipeText.textContent = '⬅️ Swipe ➡️';
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  height: 100vh;
 }
 
-function handleSwipe(event) {
-  if (event.key === 'ArrowRight' && currentIndex < images.length - 1) {
-    currentIndex++;
-    showImage(currentIndex);
-  } else if (event.key === 'ArrowLeft' && currentIndex > 0) {
-    currentIndex--;
-    showImage(currentIndex);
-  }
+#carousel {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-document.addEventListener('keydown', handleSwipe);
-showImage(currentIndex);
+.image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.image-container.active {
+  display: flex;
+}
+
+.swipe-text {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #555;
+  font-style: italic;
+  text-align: center;
+  animation: fade 1.5s infinite;
+}
+
+@keyframes fade {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
