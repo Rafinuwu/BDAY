@@ -1,33 +1,34 @@
+// Select elements
 const images = document.querySelectorAll('.image-container');
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
 let currentIndex = 0;
 
-// Function to update which image is shown
+// Function to show the current image
 function showImage(index) {
   images.forEach((img, i) => {
-    img.style.display = i === index ? 'flex' : 'none'; // Show only the active image
+    img.classList.toggle('active', i === index);
   });
 
-  // Update swipe instructions
-  const swipeText = document.querySelector('.swipe-text');
-  if (index === 0) {
-    swipeText.textContent = 'Swipe ➡️'; // First image: Only right swipe works
-  } else if (index === images.length - 1) {
-    swipeText.textContent = '⬅️ Swipe'; // Last image: Only left swipe works
-  } else {
-    swipeText.textContent = '⬅️ Swipe ➡️'; // Middle images: Both directions work
-  }
+  // Update button visibility
+  prevButton.classList.toggle('hidden', index === 0);
+  nextButton.classList.toggle('hidden', index === images.length - 1);
 }
 
-// Event listener for key presses
-function handleSwipe(event) {
-  if (event.key === 'ArrowRight' && currentIndex < images.length - 1) {
-    currentIndex++; // Move to the next image
-  } else if (event.key === 'ArrowLeft' && currentIndex > 0) {
-    currentIndex--; // Move to the previous image
+// Event listeners for buttons
+prevButton.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    showImage(currentIndex);
   }
-  showImage(currentIndex); // Update the carousel
-}
+});
 
-// Initialize the carousel
-document.addEventListener('keydown', handleSwipe);
-showImage(currentIndex); // Show the first image on load
+nextButton.addEventListener('click', () => {
+  if (currentIndex < images.length - 1) {
+    currentIndex++;
+    showImage(currentIndex);
+  }
+});
+
+// Show the first image initially
+showImage(currentIndex);
