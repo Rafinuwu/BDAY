@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swipe Images</title>
+  <title>Image Carousel</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div id="carousel">
-    <div class="image-container">
+    <!-- Image Containers -->
+    <div class="image-container active">
       <img src="image1.jpg" alt="Image 1">
     </div>
     <div class="image-container">
@@ -20,8 +21,12 @@
     <div class="image-container">
       <img src="image4.jpg" alt="Image 4">
     </div>
+
+    <!-- Navigation Buttons -->
+    <button id="prev" class="nav-button hidden">&lt;</button>
+    <button id="next" class="nav-button">&gt;</button>
   </div>
-  <p class="swipe-text">Swipe ➡️</p>
+
   <script src="script.js"></script>
 </body>
 </html>
