@@ -1,34 +1,33 @@
 const images = document.querySelectorAll('.image-container');
 let currentIndex = 0;
 
-// Function to show the current image and hide others
+// Function to update which image is shown
 function showImage(index) {
   images.forEach((img, i) => {
-    img.style.display = i === index ? 'flex' : 'none';
+    img.style.display = i === index ? 'flex' : 'none'; // Show only the active image
   });
 
-  // Update the swipe text based on the image position
+  // Update swipe instructions
   const swipeText = document.querySelector('.swipe-text');
   if (index === 0) {
-    swipeText.textContent = 'Swipe ➡️';
+    swipeText.textContent = 'Swipe ➡️'; // First image: Only right swipe works
   } else if (index === images.length - 1) {
-    swipeText.textContent = '⬅️ Swipe';
+    swipeText.textContent = '⬅️ Swipe'; // Last image: Only left swipe works
   } else {
-    swipeText.textContent = '⬅️ Swipe ➡️';
+    swipeText.textContent = '⬅️ Swipe ➡️'; // Middle images: Both directions work
   }
 }
 
-// Handle swiping (key press for simplicity)
+// Event listener for key presses
 function handleSwipe(event) {
   if (event.key === 'ArrowRight' && currentIndex < images.length - 1) {
-    currentIndex++;
-    showImage(currentIndex);
+    currentIndex++; // Move to the next image
   } else if (event.key === 'ArrowLeft' && currentIndex > 0) {
-    currentIndex--;
-    showImage(currentIndex);
+    currentIndex--; // Move to the previous image
   }
+  showImage(currentIndex); // Update the carousel
 }
 
 // Initialize the carousel
 document.addEventListener('keydown', handleSwipe);
-showImage(currentIndex);
+showImage(currentIndex); // Show the first image on load
